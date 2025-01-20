@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:surefy/Widget_Screens/main_screen_widget.dart';
+import 'package:surefy/utils/colors/colors.dart';
+import 'package:surefy/utils/getx/permission_controller.dart';
 import 'package:surefy/utils/permissionscreen_utils.dart';
 
 class PermissionAccessScreenWidget extends StatefulWidget {
@@ -12,24 +15,7 @@ class PermissionAccessScreenWidget extends StatefulWidget {
 
 class _PermissionAccessScreenWidgetState
     extends State<PermissionAccessScreenWidget> {
-  Future<void> requestContactsPermission() async {
-    var status = await Permission.contacts.status;
-
-    if (status.isDenied) {
-      // Request permission
-      if (await Permission.contacts.request().isGranted) {
-        print("Contacts permission granted");
-      } else {
-        print("Contacts permission denied");
-      }
-    } else if (status.isPermanentlyDenied) {
-      // Open app settings if permission is permanently denied
-      await openAppSettings();
-    } else {
-      print("Contacts permission already granted");
-    }
-  }
-
+  PermissionController permissionController = PermissionController();
   @override
   Scaffold build(BuildContext context) {
     final statusIn = Permission.contacts.status;
@@ -70,13 +56,20 @@ class _PermissionAccessScreenWidgetState
               const SizedBox(height: 45),
               TextButton(
                 onPressed: () {
-                  requestContactsPermission();
+                  permissionController.requestContactsPermission();
+                  // requestContactsPermission();
                   print(statusIn);
+                  // requestPhonePermission();
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) {
+                      return const MainScreenWidget();
+                    },
+                  ));
                 },
                 style: const ButtonStyle(
                   padding: MaterialStatePropertyAll(
                       EdgeInsets.only(right: 45, left: 45)),
-                  backgroundColor: MaterialStatePropertyAll(Color(0xff5864F8)),
+                  backgroundColor: MaterialStatePropertyAll(lightBlue),
                 ),
                 child: const Text(
                   accessButtonText,

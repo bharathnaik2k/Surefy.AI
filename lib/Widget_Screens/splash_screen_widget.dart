@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:surefy/Widget_Screens/main_screen_widget.dart';
+import 'package:surefy/utils/getx/permission_controller.dart';
 import 'package:surefy/utils/splashscreen_utils.dart';
 
-class SplashScreenWidget extends StatelessWidget {
+class SplashScreenWidget extends StatefulWidget {
   const SplashScreenWidget({super.key});
 
+  @override
+  State<SplashScreenWidget> createState() => _SplashScreenWidgetState();
+}
+
+class _SplashScreenWidgetState extends State<SplashScreenWidget> {
+  PermissionController permissionController = PermissionController();
+
   void naviFun(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 1800), () {
-      Navigator.of(context)
-          .pushReplacementNamed("/PermissionAccessScreenWidget");
+    Future.delayed(const Duration(milliseconds: 1800), () async {
+      var satuts = await Permission.contacts.status;
+      if (satuts.isGranted) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) {
+            return const MainScreenWidget();
+          },
+        ));
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context)
+            .pushReplacementNamed("/PermissionAccessScreenWidget");
+      }
     });
   }
 

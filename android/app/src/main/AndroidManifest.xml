@@ -1,8 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-        <uses-permission android:name="android.permission.READ_CONTACTS" />
-        <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-
         <application
         android:label="Surefy.AI"
         android:name="${applicationName}"
@@ -45,4 +41,15 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+    <!--Permissions-->
+        <uses-permission android:name="android.permission.READ_CONTACTS" />
+        <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+        <uses-permission android:name="android.permission.READ_CALL_LOG" />
+        <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+        <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+        <uses-permission android:name="android.permission.WRITE_PHONE_STATE" />
+        <uses-permission android:name="android.permission.READ_SMS" />
+        <uses-permission android:name="android.permission.SEND_SMS" />
+        <uses-permission android:name="android.permission.WRITE_SMS" />
+	<!-- Premissions -->
 </manifest>
